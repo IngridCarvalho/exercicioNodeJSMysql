@@ -6,6 +6,9 @@ var expressLayouts = require('express-ejs-layouts');
 
 var app = express();
 
+// importing routes
+const customerRoutes = require('./routes/routes');
+
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,10 +32,11 @@ con.connect(function(err) {
   console.log("Conectado ao Banco de Dados");
 });
 
-app.get('/',function(req,res){
-	res.render('teste');
-});
+// Routes
+app.use('/', customerRoutes);
 
+
+//Starting the server
 app.listen(3000, function(){
 	console.log('Servidor pronto');
 });
