@@ -1,0 +1,41 @@
+<%- contentFor('body') %>
+
+  <h2>Incluir Conta</h2>
+  <form action="/add-account" method="POST">
+    <div class="form-group">
+      <label>Nome:</label>
+      <input type="text" name="name" class="form-control" value="">
+    </div>
+    <div class="form-group">
+      <label>Saldo Inicial da Conta:</label>
+      <input type="number" name="balance" class="form-control" value="">
+    </div>
+    <button class="btn btn-success" type="submit">Salvar</button>
+  </form>
+  <br>
+  <h3>Movimentos</h3>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Nome</td>
+        <td>Saldo</td>
+        <td>Ações</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (data) { %>
+        <% for(var i = 0; i < data.length; i++) { %>
+          <tr>
+            <td><%= data[i].id %></td>
+            <td><%= data[i].name %></td>
+            <td><%= data[i].balance %></td>
+            <td class="text-center">
+              <a href="/edit-account/<%= data[i].id %>" class="btn btn-info">Editar</a>
+              <a href="/delete-account/<%= data[i].id %>" class="btn btn-danger">Remover</a>
+            </td>
+          </tr>
+        <% } %>
+      <% } %>
+    </tbody>
+  </table>
