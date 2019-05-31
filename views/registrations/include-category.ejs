@@ -14,3 +14,27 @@
 </div>
 <button class="btn btn-success" type="submit">Salvar</button>
 </form>
+<% if (data) { %>
+    <h3>Categorias</h3>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>Nome</td>
+          <td>Ações</td>
+        </tr>
+      </thead>
+      <tbody>
+          <% for(var i = 0; i < data.length; i++) { %>
+            <tr>
+              <td><%= data[i].id %></td>
+              <td><%= data[i].name %></td>
+              <td class="text-center">
+                <a href="/edit-account/<%= data[i].id %>" class="btn btn-info">Editar</a>
+                <a href="/delete-account/<%= data[i].id %>" class="btn btn-danger">Remover</a>
+              </td>
+            </tr>
+          <% } %>
+      </tbody>
+    </table>
+  <% } %>

@@ -1,13 +1,13 @@
 const controller = {};
 
 controller.list = (req, res) => {
-  req.getConnection((err, conn) => {
-    conn.query('SELECT * FROM account', (err, data_account) => {
+	req.getConnection((err, conn) => {
+    conn.query('SELECT * FROM category', (err, data_category) => {
      if (err) {
       res.json(err);
      }
-     res.render('registrations/include-account', {
-        data: data_account
+     res.render('registrations/include-category', {
+        data: data_category
      });
     });
   });
@@ -17,20 +17,19 @@ controller.save = (req, res) => {
   const data = req.body;
   console.log(req.body)
   req.getConnection((err, connection) => {
-    const query = connection.query('INSERT INTO account set ?', data, (err, data_account) => {
-      console.log(data_account);
-      res.redirect('registrations/include-account');
+    const query = connection.query('INSERT INTO category set ?', data, (err, data_category) => {
+      console.log(data_category);
+      res.redirect('registrations/include-category');
     })
   })
 };
-
 
 //missing adjusting the edit and update
 controller.edit = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
-    conn.query("SELECT * FROM account WHERE id = ?", [id], (err, rows) => {
-      res.render('registrations/include-account', {
+    conn.query("SELECT * FROM category WHERE id = ?", [id], (err, rows) => {
+      res.render('/', {
         data: rows[0]
       })
     });
@@ -42,7 +41,7 @@ controller.update = (req, res) => {
   const newRegister = req.body;
   req.getConnection((err, conn) => {
 
-  conn.query('UPDATE account set ? where id = ?', [newRegister, id], (err, rows) => {
+  conn.query('UPDATE category set ? where id = ?', [newRegister, id], (err, rows) => {
     res.redirect('/');
   });
   });
@@ -51,7 +50,7 @@ controller.update = (req, res) => {
 controller.delete = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, connection) => {
-    connection.query('DELETE FROM account WHERE id = ?', [id], (err, rows) => {
+    connection.query('DELETE FROM category WHERE id = ?', [id], (err, rows) => {
       res.redirect('/');
     });
   });
