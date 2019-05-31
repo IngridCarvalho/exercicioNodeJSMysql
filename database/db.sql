@@ -18,7 +18,7 @@ CREATE TABLE movement (
 CREATE TABLE account (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
-  balance NUMBER(6) NOT NULL
+  balance DECIMAL(65) NOT NULL
 );
 
 -- criando a tabela category

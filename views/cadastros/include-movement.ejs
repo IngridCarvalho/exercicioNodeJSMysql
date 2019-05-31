@@ -1,6 +1,6 @@
 <%- contentFor('body') %>
 
-  <h2>Incluir Formulário</h2>
+  <h2>Incluir Movimento</h2>
   <div class="form-group">
     <label>Descrição:</label>
     <input type="text" name="description" class="form-control" value="">
@@ -34,3 +34,27 @@
   </div>
   <button class="btn btn-success" type="submit">Salvar</button>
   </form>
+  <br><br>
+  <h3>Movimentos</h3>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Descrição</td>
+        <td>Data</td>
+        <td>Tipo</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (data) { %>
+        <% for(var i = 0; i < data.length; i++) { %>
+          <tr>
+            <td><%= (i + 1) %></td>
+            <td><%= data[i].description %></td>
+            <td><%= data[i].date_movement %></td>
+            <td><%= data[i].type %></td>
+          </tr>
+        <% } %>
+      <% } %>
+    </tbody>
+  </table>
