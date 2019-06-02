@@ -7,7 +7,8 @@ controller.list = (req, res) => {
       res.json(err);
      }
      res.render('registrations/include-category', {
-        data: data_category
+        data: data_category,
+				categoryEdit: null
      });
     });
   });
@@ -29,19 +30,19 @@ controller.edit = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
     conn.query("SELECT * FROM category WHERE id = ?", [id], (err, rows) => {
-      res.render('/', {
-        data: rows[0]
+      res.render('registrations/include-category', {
+        categoryEdit: rows[0],
+				data: null
       })
     });
   });
 };
 
 controller.update = (req, res) => {
-  const { id } = req.params;
   const newRegister = req.body;
   req.getConnection((err, conn) => {
 
-  conn.query('UPDATE category set ? where id = ?', [newRegister, id], (err, rows) => {
+  conn.query('UPDATE category set ? where id = ?', [newRegister, req.body.id], (err, rows) => {
     res.redirect('/');
   });
   });

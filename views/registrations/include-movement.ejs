@@ -1,62 +1,69 @@
 <%- contentFor('body') %>
 
   <h2>Incluir Movimento</h2>
-  <div class="form-group">
-    <label>Descrição:</label>
-    <input type="text" name="description" class="form-control" value="">
-  </div>
-  <div class="form-group">
-    <label>Data Documento:</label>
-    <input type="date" name="date" class="form-control" value="">
-  </div>
-  <div class="form-group">
-    <label>Tipo:</label>
-      <select name="type" id="type" class="form-control">
-          <option value="revenue">Receita</option>
-          <option value="expense">Despesa</option>
-      </select>
-  </div>
-  <div class="form-group">
-    <label>Categoria:</label>
-      <select name="type" id="type" class="form-control">
-        <!-- Aqui terá um for dos registros do bd -->
-      </select>
-  </div>
-  <div class="form-group">
-    <label>Conta:</label>
-      <select name="type" id="type" class="form-control">
-        <!-- Aqui terá um for dos registros do bd -->
-      </select>
-  </div>
-  <div class="form-group">
-    <label>Valor:</label>
-    <input type="number" name="value" class="form-control" value="">
-  </div>
-  <button class="btn btn-success" type="submit">Salvar</button>
+  <form class="form" action="<%= movementEdit == null ? "/add-movement" : "/update-movement/" %>" method="POST">
+    <input type="hidden" name="id" value="<%= movementEdit == null ? "" : movementEdit.id %>">
+    <div class="form-group">
+      <label>Descrição:</label>
+      <input type="text" name="description" class="form-control" value="<%= movementEdit == null ? "" : movementEdit.description %>">
+    </div>
+    <div class="form-group">
+      <label>Tipo:</label>
+        <select name="type" id="type" class="form-control">
+            <option value="Receita">Receita</option>
+            <option value="Despesa">Despesa</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label>Categoria:</label>
+        <select name="id_category" id="id_category" class="form-control">
+          <%category.forEach(category => { %>
+              <option value="<%=category.id%>"><%= category.name %></option>
+          <% }) %>
+        </select>
+    </div>
+    <div class="form-group">
+      <label>Conta:</label>
+        <select name="id_account" id="id_account" class="form-control">
+          <% console.log(account);
+          account.forEach(account => { %>
+              <option value="<%=account.id%>"><%= account.name %></option>
+          <% }) %>
+        </select>
+    </div>
+    <div class="form-group">
+      <label>Valor:</label>
+      <input type="number" name="value" class="form-control" value="<%= movementEdit == null ? "" : movementEdit.value %>">
+    </div>
+    <button class="btn btn-success" type="submit">Salvar</button>
   </form>
   <br><br>
-  <% if (data) { %>
+  <%  if (movement) { %>
     <h3>Movimentos</h3>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <td>ID</td>
           <td>Descrição</td>
-          <td>Data</td>
           <td>Tipo</td>
+          <td>Conta</td>
+          <td>Categoria</td>
+          <td>Valor</td>
           <td>Ações</td>
         </tr>
       </thead>
       <tbody>
-        <% for(var i = 0; i < data.length; i++) { %>
+        <% for(var i = 0; i < movement.length; i++) { %>
           <tr>
-            <td><%= data[i].id %></td>
-            <td><%= data[i].description %></td>
-            <td><%= data[i].date_movement %></td>
-            <td><%= data[i].type %></td>
+            <td><%= movement[i].id %></td>
+            <td><%= movement[i].description %></td>
+            <td><%= movement[i].type %></td>
+            <td><%= movement[i].account %></td>
+            <td><%= movement[i].category %></td>
+            <td><%= movement[i].value %></td>
             <td class="text-center">
-              <a href="/edit-movement/<%= data[i].id %>" class="btn btn-info">Editar</a>
-              <a href="/delete-movement/<%= data[i].id %>" class="btn btn-danger">Remover</a>
+              <a href="/edit-movement/<%= movement[i].id %>" class="btn btn-info">Editar</a>
+              <a href="/delete-movement/<%= movement[i].id %>" class="btn btn-danger">Remover</a>
             </td>
           </tr>
         <% } %>

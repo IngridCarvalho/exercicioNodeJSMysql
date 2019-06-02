@@ -1,14 +1,15 @@
 <%- contentFor('body') %>
 
   <h2>Incluir Conta</h2>
-  <form action="/add-account" method="POST">
+  <form class="form" action="<%= accountEdit == null ? "/add-account" : "/update-account/" %>" method="POST">
     <div class="form-group">
+      <input type="hidden" name="id" value="<%= accountEdit == null ? "" : accountEdit.id %>">
       <label>Nome:</label>
-      <input type="text" name="name" class="form-control" value="">
+      <input type="text" name="name" class="form-control" value="<%= accountEdit == null ? "" : accountEdit.name %>">
     </div>
     <div class="form-group">
       <label>Saldo Inicial da Conta:</label>
-      <input type="number" name="balance" class="form-control" value="">
+      <input type="number" name="balance" class="form-control" value="<%= accountEdit == null ? "" : accountEdit.balance %>">
     </div>
     <button class="btn btn-success" type="submit">Salvar</button>
   </form>
